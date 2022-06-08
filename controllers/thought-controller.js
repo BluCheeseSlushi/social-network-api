@@ -56,6 +56,27 @@ const thoughtController = {
             res.json(dbThoughtData);
             })
             .catch(err => res.status(400).json(err));
+    },
+    addReaction({ body }, res) {
+        Thought.create(body)
+            .then(({ _id }) => {
+                return Thought.findOneAndUpdate(
+                    {_id: Thought.thoughtId },
+                    { $push: { reactions: _id } },
+                    {new: true }
+                );
+            })
+            .then(dbThoughtData => res.json(dbThoughtData))
+            .catch(err => res.status(400).json(err));
+    },
+    removeFriend({ params }, res) {
+        Thought.findOneAndUpdate(
+            { _id: params.thoughtId },
+            { $pull: { reactions: _id } },
+            { new: true }
+        )
+            .then(dbPizzaData => res.json(dbPizzaData))
+            .catch(err => res.json(err));
     }
 }
 

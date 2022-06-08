@@ -49,7 +49,28 @@ const userController = {
             res.json(dbUserData);
           })
           .catch(err => res.status(400).json(err));
-    }
+    },
+    addFriend({ body }, res) {
+        User.create(body)
+            .then(({ _id }) => {
+                return User.findOneAndUpdate(
+                    {_id: User.userId },
+                    { $push: { friends: _id } },
+                    {new: true }
+                );
+            })
+            .then(dbThoughtData => res.json(dbThoughtData))
+            .catch(err => res.status(400).json(err));
+    },
+    removeFriend({ params }, res) {
+        User.findOneAndUpdate(
+            { _id: params.userId },
+            { $pull: { friends: _id } },
+            { new: true }
+        )
+            .then(dbPizzaData => res.json(dbPizzaData))
+            .catch(err => res.json(err));
+    },
 };
 
 module.exports = userController;
