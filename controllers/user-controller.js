@@ -70,7 +70,7 @@ const userController = {
         )
             .then(dbPizzaData => res.json(dbPizzaData))
             .catch(err => res.json(err));
-    },
+    }
 };
 
 module.exports = userController;

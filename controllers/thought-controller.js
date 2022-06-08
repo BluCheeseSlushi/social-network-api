@@ -46,8 +46,8 @@ const thoughtController = {
             })
             .catch(err => res.status(400).json(err));
     },
-    deleteUser({ params }, res) {
-        User.findOneAndDelete({ _id: params.id })
+    deleteThought({ params }, res) {
+        Thought.findOneAndDelete({ _id: params.id })
             .then(dbThoughtData => {
             if (!dbThoughtData) {
               res.status(404).json({ message: 'No thought found with this id!' });
