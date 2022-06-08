@@ -27,3 +27,7 @@ ReactionSchema = new Schema({
     },
     id: false
 })
+
+const Reaction = model('Reaction', ReactionSchema)
+
+module.exports = Reaction;
